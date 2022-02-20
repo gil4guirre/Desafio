@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Teste de Senha</h1>
+    <div>
+        <form action="">
+            <label for="password">Senha</label><br>
+            <input type="text" id="password" autocomplete="off">
+        </form>
+    </div>
+    <div>
+        <p>
+            Ainda faltam
+            <input type="number" value="6" disabled id="needed">
+            dígitos válidos.
+        </p>
+    </div>
+    <script>
+        
+        let needed = 6    //cria variável para valor mínimo da senha
+
+        document.getElementById("password").addEventListener("input", (event) =>{
+                        
+            document.getElementById("needed").value = needed   //retorna o campo de saída para o valor mínimo da senha
+            
+            let password = document.getElementById("password").value    //coleta o valor do campo senha
+            
+            let passwordLength = 0  //valor do comnprimento da senha
+            
+            let digit = /\d+/.test(password)    //checa se tem 1 dígito
+            
+            let lowerCaseLetter = /[a-z]+/.test(password)   //checa se tem uma letra minúscula
+            
+            let upperCaseLetter = /[A-Z]+/.test(password)   //checa se tem uma letra maiúscula
+            
+            let specialCharacter = /[!@#$%^&*()-+]+/.test(password)     //checa se tem um dos caracters !@#$%^&*()-+
+            
+            
+            if ( digit && lowerCaseLetter && upperCaseLetter && specialCharacter ){     //checa se todos os pré-requsitos são verdadeiros
+               
+                if (password.match(/[0-9a-zA-Z!@#$%^&*()-+]/g).length > needed) {    //se o tamanho da string do campo senha for maior que o mínimo de dígitos, ele se limita ao mínimo
+                    passwordLength = needed
+                } else {
+                    passwordLength = password.match(/[0-9a-zA-Z!@#$%^&*()-+]/g).length  //pega o tamanho da string do campo da senha
+                }
+
+            } else {  //se ao menos 1 pré-requisito for falso, cada pré-requisito soma apenas 1 ao tamanho da string
+                
+                if ( digit ) { passwordLength++ }   //soma 1 se houver ao menos 1 dígito
+                
+                if ( lowerCaseLetter ) { passwordLength++ }     //soma 1 se houver ao menos uma letra minúscula
+                
+                if ( upperCaseLetter ) { passwordLength++ }     //soma 1 se houver ao menos uma letra maiúscula
+                
+                if ( specialCharacter ) { passwordLength++ }    //soma 1 se houver ao menos um dos caracters !@#$%^&*()-+
+            }
+
+            document.getElementById("needed").value = needed-passwordLength     //subtrai o tamanho do campo senha da quantidade mínima de caracteres na senha
+    
+        })
+         
+    </script>
+</body>
+</html>

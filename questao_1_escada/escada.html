@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escada</title>
+</head>
+<body>
+    <h1>Escada</h1>
+    <div>
+        <form action="">
+            <label for="steps">Número de Degraus</label><br>
+            <input type="number" id="steps">
+        </form>
+    </div>
+    <div id="stairs">
+    </div>
+    <script>
+        
+        document.getElementById("steps").addEventListener("input", (event) =>{
+            
+            document.getElementById("stairs").innerHTML=""  //limpa a div em cada ocorrência do evento
+
+            let nsteps = document.getElementById("steps").value     //pega o valor do número de degraus
+            let stairs = document.getElementById("stairs")  //pega a div pra poder manipular ela
+                                
+            for (let i = nsteps-1; i >= 0; i--){    //itera pela quantidade de degarus
+                let elem = document.createElement("span")   //a cada iteração cria uma span
+                elem.innerHTML = "&nbsp;&nbsp;".repeat(i)+"*".repeat(nsteps-i)+"<br/>";     //a cada iteração cria dois espaços vazios e um asterisco pelo valor da iteração na span criada
+                stairs.appendChild(elem)    //adiciona a span criada na div "stairs", a cada iteração adiciona uma extra com os "degraus" criados na linha 37        
+            }
+
+        })
+         
+    </script>
+</body>
+</html>

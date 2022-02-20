@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Encontrar Anagramas</h1>
+    <div>
+        <form action="">
+            <label for="word">Palavra</label><br>
+            <input type="text" id="word" autocomplete="off">
+        </form>
+    </div>
+    <div>
+        <p>
+            Existem
+            <input type="number" value="0" disabled id="anagramsn">
+            anagramas na sua palavra.
+        </p>
+    </div>
+    <script>
+        
+        function findSubstrings(stringA) {
+            let i, j, result = [];
+                
+            for (i = 0; i < stringA.length; i++) {
+                for (j = i + 1; j < stringA.length + 1; j++) {
+                result.push(stringA.slice(i, j))
+                }
+            }
+            return result
+        }
+
+        function checkAnagram(string1, string2) {
+            const hist = {}
+
+            for (let i = 0; i < string1.length; i++) {
+                const character = string1[i]
+                if (hist[character]) {
+                  hist[character]++
+                } else {
+                  hist[character] = 1
+                }
+            }
+        
+            for (let j = 0; j < string2.length; j++) {
+                const character = string2[j]
+                if (hist[character]) {
+                  hist[character]--
+                } else {
+                  return false
+                }
+            }
+
+            return true
+        }
+
+        function countAnagrams(currentIndex, arr) {
+            const currentElement = arr[currentIndex]
+            const arrRest = arr.slice(currentIndex + 1)
+            let counter = 0
+
+            for (let i = 0; i < arrRest.length; i++) {
+                if (currentElement.length === arrRest[i].length && checkAnagram(currentElement, arrRest[i])) {
+                  counter++
+                }
+            }
+        
+            return counter
+        }
+
+        function tidyAnagrams(s) {
+                const duplicatesCount = s.split('').filter((v, i) => s.indexOf(v) !== i).length
+
+                if (!duplicatesCount) return 0
+                let anagramsCount = 0
+
+                const arr = findSubstrings(s)
+
+                for (let i = 0; i < arr.length; i++) {
+                  anagramsCount += countAnagrams(i, arr)
+                }
+            
+                return anagramsCount
+        }
+
+        document.getElementById("word").addEventListener("input", (event) =>{
+            
+            document.getElementById("anagramsn").value = "0"
+            let words = document.getElementById("word").value
+            let anagramsn = tidyAnagrams(words)
+            document.getElementById("anagramsn").value = anagramsn
+            
+        })
+
+    </script>
+</body>
+</html>
