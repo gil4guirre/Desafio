@@ -2,3 +2,7 @@ Repositório com as respostas ao desafio do link https://docs.google.com/documen
 
 Em cada resposta foi utilizado HTML e vanilla JavaScript.
 
+A resposta de cada questão está em um arquivo .html separado. Para rodar é só baixar um dos arquivos e abrí-lo em um browser.
+
+Cada questão tem um campo onde pode ser digitada a entrada e assim que algo é digitado, ele já exibe a saída.
+
